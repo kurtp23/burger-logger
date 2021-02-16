@@ -5,9 +5,11 @@
 <ul>
     {{#each burgers}}
     <li>
-        <p>ID: {{this.id}}</p>
-        <p>burger: {{this.burger_name}}</p>
+        <h2> {{this.burger_name}} Burger</h2>
     </li>
+    <form action="/" method="PUT">
+        <button id={{this.id}} name="eat">EAT</button>
+    </form>
     {{/each}}
 </ul>
 

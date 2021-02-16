@@ -1,13 +1,27 @@
-const connection = require("connection.js");
+const connection = require("./connection.js");
+const orm = {
+  displayBurgers: () => {
+    connection.query("SELECT * FROM burgers;", function (err, data) {
+      if (err) throw err;
 
-const selectAll = () => {};
+      console.log(data);
+      res.render("index", { burgers: data });
+    });
+  },
 
-const insertOne = () => {};
+  addBurger: () => {
+    connection.query(
+      "INSERT INTO burgers (burger_name) VALUES (?)",
+      [req.body.burger],
+      function (err, result) {
+        if (err) throw err;
 
-const updateOne = () => {};
+        res.redirect("/");
+      }
+    );
+  },
 
-module.exports = {
-  selectAll,
-  insertOne,
-  updateOne,
+  eatBurger: () => {},
 };
+
+module.exports = orm;

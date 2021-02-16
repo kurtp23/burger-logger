@@ -1,4 +1,5 @@
 const express = require("express");
+//const orm = require("./config/orm.js");
 const exphbs = require("express-handlebars");
 const mysql = require("mysql");
 const app = express();
@@ -42,5 +43,20 @@ app.post("/", function (req, res) {
     }
   );
 });
+app.put("/:id", function (req, res) {
+  connection.query(
+    `UPDATE burgers
+    SET
+    devoured = TRUE
+    WHERE
+    id = ?`,
+    [req.body.eat],
+    function (err, result) {
+      if (err) throw err;
 
-app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
+      res.redirect("/");
+    }
+  );
+});
+
+app.listen(PORT, () => console.log("Server listening on: http://localhost:" + PORT));
