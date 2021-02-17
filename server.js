@@ -44,6 +44,7 @@ app.post("/", function (req, res) {
   );
 });
 app.put("/:id", function (req, res) {
+  console.log("we hit put");
   connection.query(
     `UPDATE burgers
     SET
@@ -53,7 +54,7 @@ app.put("/:id", function (req, res) {
     [req.body.eat],
     function (err, result) {
       if (err) throw err;
-
+      console.log("this is put", result);
       res.redirect("/");
     }
   );

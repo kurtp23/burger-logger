@@ -7,9 +7,9 @@
     <li>
         <h2> {{this.burger_name}} Burger</h2>
     </li>
-    <form action="/" method="PUT">
-        <button id={{this.id}} name="eat">EAT</button>
-    </form>
+
+    <button id={{this.id}} class="eat">EAT</button>
+
     {{/each}}
 </ul>
 
@@ -18,3 +18,10 @@
 
     <button type="submit">Submit</button>
 </form>
+
+<script>
+    document.getElementsByClassName("eat").map(addEventListener("click", (event) => {
+        event.preventDefault();
+        fetch(`/${event.target.id}`, { method: "PUT" })
+    }))
+</script>
