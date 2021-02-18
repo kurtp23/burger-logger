@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 4000;
 // include midleware to parse json
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(express.static("pub"));
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
@@ -32,6 +32,7 @@ app.get("/", function (req, res) {
     res.render("index", { burgers: data });
   });
 });
+
 app.post("/", function (req, res) {
   connection.query(
     "INSERT INTO burgers (burger_name) VALUES (?)",
@@ -50,12 +51,11 @@ app.put("/:id", function (req, res) {
     SET
     devoured = TRUE
     WHERE
-    id = ?`,
-    [req.body.eat],
+    id = (?)`,
+    [req.params.id],
     function (err, result) {
       if (err) throw err;
       console.log("this is put", result);
-      res.redirect("/");
     }
   );
 });

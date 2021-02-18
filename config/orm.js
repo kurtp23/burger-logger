@@ -21,7 +21,20 @@ const orm = {
     );
   },
 
-  eatBurger: () => {},
+  eatBurger: () => {
+    connection.query(
+      `UPDATE burgers
+      SET
+      devoured = TRUE
+      WHERE
+      id = (?)`,
+      [req.params.id],
+      function (err, result) {
+        if (err) throw err;
+        console.log("this is put", result);
+      }
+    );
+  },
 };
 
 module.exports = orm;
